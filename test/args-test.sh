@@ -20,9 +20,10 @@ function test_simple_function_args()
 
   brash::args::parse $@
 
-  brash::log "Foo: $(brash::args::get "foo")"
-  brash::log "Bar: $(brash::args::get "bar")"
+  brash::test::assert_eq $(brash::args::get "foo") "fooval"
+  brash::test::assert_eq $(brash::args::get "bar") "barval"
 }
 
-test_simple_function_args --foo=fooval -bar=barval
-test_simple_function_args -f=short_Foo -b=short_bar
+brash::test::begin "Simple Function Full Args" test_simple_function_args --foo=fooval -bar=barval
+brash::test::begin "Simple Function Short Args" test_simple_function_args -f=fooval -b=barval
+
